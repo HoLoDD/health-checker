@@ -74,7 +74,9 @@ export class WebServicesService {
     }
   }
 
-  // async getUsersForWebservice(id: number) {
-  //   return await this.webservicesRepository.find({ relations: ['users'] });
-  // }
+  async getUsersForWebservice() {
+    return await this.webservicesRepository.find({
+      relations: ['users'],
+    });
+  }
 }

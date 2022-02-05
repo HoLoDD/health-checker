@@ -42,8 +42,11 @@ export class TelegrafService {
   }
 
   async viewWebservicesForUser(userId: number) {
-    const user = await this.userService.getUserById(userId);
+    const [user] = await this.userService.getServicesForUser(userId);
+    console.log(user);
+
     let list: string = '--- My Services list ---\n\n';
+    if (!user.webservices) return 'Empty';
     user.webservices.forEach((webservice, index) => {
       list += `Web Service ${index}:
        Name: ${webservice.name}

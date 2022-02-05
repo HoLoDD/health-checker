@@ -15,15 +15,15 @@ export class UrlCheckerService {
 
   @Cron(CronExpression.EVERY_10_SECONDS)
   async statusChecker() {
-    const servicesList = await this.webServicesService.getAll();
-    const users = await this.userService.getUsers();
+    const servicesList = await this.webServicesService.getUsersForWebservice();
+    console.log();
 
     servicesList.forEach((service) => {
       this.checkUrlStatus(service.url, service.latency).then((status) => {
         if (!status) {
           if (service.isAvailable) {
-            if (users) {
-              users.forEach((user) => {
+            if (service.users) {
+              service.users.forEach((user) => {
                 service.isAvailable = false;
                 const today = new Date();
                 service.unavailableFrom = today
@@ -48,8 +48,8 @@ export class UrlCheckerService {
           }
         } else {
           if (!service.isAvailable) {
-            if (users) {
-              users.forEach((user) => {
+            if (service.users) {
+              service.users.forEach((user) => {
                 service.isAvailable = true;
                 const today = new Date();
                 service.unavailableTo = today

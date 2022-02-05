@@ -66,10 +66,6 @@ export class UsersService {
     }
   }
 
-  // async getServicesForUser(id: number) {
-  //   return await this.userRepository.find({ relations: ['webservices'] });
-  // }
-
   async removeUserById(id: number) {
     try {
       const user = await this.userRepository.findOneOrFail(id);
@@ -77,5 +73,8 @@ export class UsersService {
     } catch (error) {
       throw new NotFoundException(`User with id ${id} doesn't exist`);
     }
+  }
+  async getServicesForUser(id: number) {
+    return await this.userRepository.find({ relations: ['webservices'] });
   }
 }
