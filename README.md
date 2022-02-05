@@ -20,3 +20,6 @@ Nestjs, TypeORM, PostgreSQL
 3) Сервисы проверяются на доступность каждые 5 минут и если их статус меняется пользователь получет уведомление
 
 # Data Base Models
+![models](https://user-images.githubusercontent.com/85313700/152651017-d4ba1224-d522-480b-97b7-bebc40764e85.png)
+# REST API Documentation
+![api-docs](https://user-images.githubusercontent.com/85313700/152651036-899f5e52-df9a-410b-a7be-1be143c913a4.png)
