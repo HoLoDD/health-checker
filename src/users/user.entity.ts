@@ -18,7 +18,13 @@ export class User {
   @Column('varchar', { default: null, unique: true })
   mail: string;
 
-  @ManyToMany(() => Webservice, (webservice) => webservice.users)
-  @JoinTable()
+  @ManyToMany(() => Webservice, (webservice) => webservice.users, {
+    cascade: true,
+  })
+  @JoinTable({
+    name: 'users_roles',
+    joinColumn: { name: 'userId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'webserviceId' },
+  })
   webservices: Webservice[];
 }

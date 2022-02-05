@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Webservice } from 'src/webservices/webservice.entity';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 
@@ -22,6 +23,29 @@ export class UsersService {
     return await this.userRepository.find();
   }
 
+  async editUser(userid: number, telegram_id: number, mail: string) {
+    try {
+      const user = await this.userRepository.findOneOrFail(userid);
+
+      user.telegram_id = telegram_id;
+      user.mail = mail;
+
+      return this.userRepository.save(user);
+    } catch (error) {
+      throw new NotFoundException(`User with id ${userid} doesn't exist`);
+    }
+  }
+
+  async addWebService(userid: number, webService: Webservice) {
+    const user = await this.userRepository.findOneOrFail(userid);
+
+    if (!user.webservices) user.webservices = [];
+    user.webservices = [...user.webservices, webService];
+    console.log(user.webservices);
+
+    return this.userRepository.save(user);
+  }
+
   async getUserByTelegram(telegram_id: number) {
     try {
       return await this.userRepository.findOneOrFail({
@@ -42,9 +66,9 @@ export class UsersService {
     }
   }
 
-  async getServicesForUser(id: number) {
-    return await this.userRepository.find({ relations: ['webservices'] });
-  }
+  // async getServicesForUser(id: number) {
+  //   return await this.userRepository.find({ relations: ['webservices'] });
+  // }
 
   async removeUserById(id: number) {
     try {
