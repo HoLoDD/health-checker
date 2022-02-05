@@ -1,0 +1,290 @@
+
+window.onload = function() {
+  // Build a system
+  var url = window.location.search.match(/url=([^&]+)/);
+  if (url && url.length > 1) {
+    url = decodeURIComponent(url[1]);
+  } else {
+    url = window.location.origin;
+  }
+  var options = {
+  "swaggerDoc": {
+    "openapi": "3.0.0",
+    "paths": {
+      "/services": {
+        "get": {
+          "operationId": "WebServicesController_getServicesList",
+          "summary": "Get all webservices",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Webservice"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Web Services"
+          ]
+        },
+        "post": {
+          "operationId": "WebServicesController_addService",
+          "summary": "Web Service creation",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateWebserviceDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Webservice"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Web Services"
+          ]
+        }
+      },
+      "/services/{id}/status": {
+        "get": {
+          "operationId": "WebServicesController_getServiceStatus",
+          "summary": "Get Web Service by id",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "number"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Webservice"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Web Services"
+          ]
+        }
+      },
+      "/services/{id}": {
+        "put": {
+          "operationId": "WebServicesController_editService",
+          "summary": "Web Service update",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "number"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Webservice"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Web Services"
+          ]
+        },
+        "delete": {
+          "operationId": "WebServicesController_removeService",
+          "summary": "remove Web Service",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "number"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Webservice"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Web Services"
+          ]
+        }
+      }
+    },
+    "info": {
+      "title": "Health Checker",
+      "description": "REST API Documentatoion",
+      "version": "Test task",
+      "contact": {}
+    },
+    "tags": [],
+    "servers": [],
+    "components": {
+      "schemas": {
+        "Webservice": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": "1",
+              "description": "ID"
+            },
+            "name": {
+              "type": "string",
+              "example": "Google",
+              "description": "Name"
+            },
+            "url": {
+              "type": "string",
+              "example": "https://www.google.com",
+              "description": "URL"
+            },
+            "latency": {
+              "type": "number",
+              "example": "400",
+              "description": "Maximum allowable latency value in ms"
+            },
+            "isAvailable": {
+              "type": "boolean",
+              "example": "true",
+              "description": "Current status"
+            },
+            "unavailableFrom": {
+              "type": "string",
+              "example": "2022-01-01 23:50:00",
+              "description": "Last time become unavailable"
+            },
+            "unavailableTo": {
+              "type": "string",
+              "example": "2022-01-02 01:15:00",
+              "description": "Last time become available"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "url",
+            "latency",
+            "isAvailable",
+            "unavailableFrom",
+            "unavailableTo"
+          ]
+        },
+        "CreateWebserviceDto": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Google",
+              "description": "Name"
+            },
+            "url": {
+              "type": "string",
+              "example": "https://www.google.com",
+              "description": "URL"
+            },
+            "latency": {
+              "type": "number",
+              "example": "400",
+              "description": "Maximum allowable latency value in ms"
+            },
+            "userid": {
+              "type": "number",
+              "example": "5",
+              "description": "ID of user who will get notifications"
+            }
+          },
+          "required": [
+            "name",
+            "url",
+            "latency",
+            "userid"
+          ]
+        }
+      }
+    }
+  },
+  "customOptions": {},
+  "swaggerUrl": {}
+};
+  url = options.swaggerUrl || url
+  var urls = options.swaggerUrls
+  var customOptions = options.customOptions
+  var spec1 = options.swaggerDoc
+  var swaggerOptions = {
+    spec: spec1,
+    url: url,
+    urls: urls,
+    dom_id: '#swagger-ui',
+    deepLinking: true,
+    presets: [
+      SwaggerUIBundle.presets.apis,
+      SwaggerUIStandalonePreset
+    ],
+    plugins: [
+      SwaggerUIBundle.plugins.DownloadUrl
+    ],
+    layout: "StandaloneLayout"
+  }
+  for (var attrname in customOptions) {
+    swaggerOptions[attrname] = customOptions[attrname];
+  }
+  var ui = SwaggerUIBundle(swaggerOptions)
+
+  if (customOptions.oauth) {
+    ui.initOAuth(customOptions.oauth)
+  }
+
+  if (customOptions.authAction) {
+    ui.authActions.authorize(customOptions.authAction)
+  }
+
+  window.ui = ui
+}
