@@ -13,7 +13,7 @@ export class UrlCheckerService {
     private userService: UsersService,
   ) {}
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_5_MINUTES)
   async statusChecker() {
     const servicesList = await this.webServicesService.getUsersForWebservice();
     console.log();

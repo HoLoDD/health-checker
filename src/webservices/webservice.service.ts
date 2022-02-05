@@ -14,11 +14,11 @@ export class WebServicesService {
     private userService: UsersService,
   ) {}
 
-  async getAll(): Promise<Webservice[]> {
+  async getAll() {
     return await this.webservicesRepository.find();
   }
 
-  async getStatus(id: number): Promise<Webservice> {
+  async getById(id: number) {
     try {
       return await this.webservicesRepository.findOneOrFail(id);
     } catch (error) {
@@ -26,7 +26,7 @@ export class WebServicesService {
     }
   }
 
-  async addWebService(dto: CreateWebserviceDto): Promise<Webservice> {
+  async addWebService(dto: CreateWebserviceDto) {
     const user = await this.userService.getUserById(dto.userid);
     const newWebservice = this.webservicesRepository.create();
 
@@ -48,7 +48,7 @@ export class WebServicesService {
     isAvailable: boolean,
     unavailableFrom?: string,
     unavailableTo?: string,
-  ): Promise<Webservice> {
+  ) {
     try {
       const webservice = await this.webservicesRepository.findOneOrFail(id);
 
@@ -65,7 +65,7 @@ export class WebServicesService {
     }
   }
 
-  async removeWebService(id: number): Promise<Webservice> {
+  async removeWebService(id: number) {
     try {
       const webservice = await this.webservicesRepository.findOneOrFail(id);
       return this.webservicesRepository.remove(webservice);
