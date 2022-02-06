@@ -1,12 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from 'src/users/user.entity';
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToMany,
-  JoinTable,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 
 @Entity('Webservice')
 export class Webservice {

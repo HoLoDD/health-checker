@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { Webservice } from './webservice.entity';
 import { CreateWebserviceDto } from './dto/create-webservice.dto';
 import { UsersService } from 'src/users/users.service';
-import { UrlCheckerService } from 'src/url-checker/url-checker.service';
 
 @Injectable()
 export class WebServicesService {

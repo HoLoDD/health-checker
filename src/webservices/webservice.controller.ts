@@ -3,8 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  Header,
-  Headers,
   Param,
   Post,
   Put,
